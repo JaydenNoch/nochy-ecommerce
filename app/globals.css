@@ -1,26 +1,1280 @@
 @import "tailwindcss";
 
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Syne:wght@700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --powder-petal: #eddcd2;
+  --linen: #fff1e6;
+  --soft-blush: #fde2e4;
+  --petal-frost: #fad2e1;
+  --light-cyan: #c5dedd;
+  --mint-cream: #dbe7e4;
+  --parchment: #f0efeb;
+  --alice-blue: #d6e2e9;
+  --pale-sky: #bcd4e6;
+  --powder-blue: #99c1de;
+  --electric-blue: #0000FF;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--linen);
+  color: #121212;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Typography Classes */
+.font-syne {
+  font-family: 'Syne', sans-serif;
+}
+
+.font-mono-tech {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Marquee Running Text Bar */
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  background-color: var(--electric-blue);
+  color: #ffffff;
+}
+
+/* Clean Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--linen);
+}
+::-webkit-scrollbar-thumb {
+  background: #121212;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 18s linear infinite;
+}
+
+.animate-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+.hero-fixed-bg {
+  width: 100%;
+  height: 82vh;
+  position: relative;
+  background-attachment: scroll;
+  background-position: center 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  z-index: 0;
+  isolation: auto;
+}
+
+/* Container pembungkus gambar */
+.product-img-wrapper {
+  width: 100%;
+  height: 480px;
+  background-color: #e5e5e5;
+  overflow: hidden;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+/* GAMBAR A - DEFAULT */
+.product-img-primary {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+/* GAMBAR B - PAS HOVER */
+.product-img-secondary {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+/* HOVER EFFECT: TUKAR GAMBAR */
+.product-img-wrapper:hover .product-img-primary {
+  opacity: 0;
+}
+
+.product-img-wrapper:hover .product-img-secondary {
+  opacity: 1;
+}
+
+/* Container slider winter wear */
+.winter-slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.winter-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Garis indikator slider di atas */
+.winter-indicators {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.winter-bar {
+  flex: 1;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.winter-bar.active::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+/* Tombol panah slider (kiri & kanan) */
+.winter-arrow-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  font-weight: bold;
+}
+
+.winter-arrow-left { left: 20px; }
+.winter-arrow-right { right: 20px; }
+
+/* Card produk melayang di kanan bawah */
+.winter-float-card {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  left: 24px;
+  background: #ffffff;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+@keyframes progressFill {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+.winter-bar-fill {
+  height: 100%;
+  background-color: #ffffff;
+  width: 0%;
+}
+
+.winter-bar.active .winter-bar-fill {
+  animation: progressFill 4s linear forwards;
+}
+
+.winter-bar.filled .winter-bar-fill {
+  width: 100%;
+}
+
+@keyframes spawnFromLeft {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes spawnFromRight {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes spawnFromTop {
+  from { opacity: 0; transform: translateY(-40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spawnFromBottom {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* 
+  State awal: semua section tersembunyi.
+  Class .anim-visible ditambahkan oleh IntersectionObserver saat masuk viewport.
+  Class dihapus saat keluar viewport → animasi ulang saat masuk lagi.
+*/
+.anim-on-scroll {
+  opacity: 0;
+  /* Pastikan state reset bersih saat class dihapus */
+  transition: none;
+}
+
+.anim-on-scroll.anim-visible.anim-left {
+  animation: spawnFromLeft 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-on-scroll.anim-visible.anim-right {
+  animation: spawnFromRight 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-on-scroll.anim-visible.anim-top {
+  animation: spawnFromTop 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.anim-on-scroll.anim-visible.anim-bottom {
+  animation: spawnFromBottom 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Lama: tetap ada untuk backward compat tapi di-reset */
+.anim-spawn-left,
+.anim-spawn-right,
+.anim-spawn-top,
+.anim-spawn-bottom {
+  /* tidak pakai animation-timeline: view() lagi — sudah diganti AnimateOnScroll */
+}
+
+/* ====== NAVBAR Z-INDEX GUARD ====== */
+/* Pastikan wrapper fixed navbar selalu di lapisan teratas */
+body > div#__next,
+body > div[data-nextjs-root] {
+  isolation: auto;
+}
+
+/* Semua section konten: tidak boleh lebih tinggi dari navbar (z-index: 9999) */
+main > *,
+main section,
+main footer {
+  z-index: auto !important;
+  isolation: auto !important;
+}
+
+/* Hero section khusus — pastikan tidak pernah naik ke atas navbar */
+.hero-fixed-bg {
+  z-index: 0 !important;
+  isolation: auto !important;
+  transform: none !important;
+}
+
+/* AnimateOnScroll wrapper — selalu di bawah navbar */
+.anim-on-scroll {
+  z-index: 0;
+  isolation: auto;
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN (TABLET & MOBILE)
+   ========================================================== */
+
+/* Tablet & Layar Sedang (Maksimal 1024px) */
+@media (max-width: 1024px) {
+  /* Header padding — JANGAN override position/z-index */
+  header {
+    padding: 14px 20px !important;
+  }
+  header nav {
+    gap: 16px !important;
+    font-size: 11px !important;
+  }
+
+  /* Hero section */
+  .hero-fixed-bg > div[style*="bottom: 60px"] {
+    left: 20px !important;
+    bottom: 40px !important;
+    max-width: 90% !important;
+  }
+  .hero-fixed-bg h1 {
+    font-size: 46px !important;
+  }
+
+  /* Section produk: padding lebih kecil */
+  .section-products {
+    padding: '40px 20px' !important;
+  }
+
+  /* Grid produk: minimum kolom lebih kecil */
+  .grid-products {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+    gap: 16px !important;
+  }
+
+  /* Winter wear: stack jadi 1 kolom */
+  .grid-winter {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Text winter wear: padding lebih kecil */
+  .winter-text {
+    padding: 50px 30px !important;
+  }
+  .winter-text h2 {
+    font-size: 40px !important;
+  }
+
+  /* Winter slider: height lebih pendek */
+  .winter-slider-container {
+    height: 400px !important;
+  }
+  .winter-slider-wrapper {
+    height: 400px !important;
+  }
+
+  /* Collection cards: 1 kolom */
+  .grid-collection {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* Testimonial: font lebih kecil */
+  .testimonial-quote {
+    font-size: 28px !important;
+  }
+  .testimonial-watermark {
+    font-size: 90px !important;
+  }
+
+  /* Footer grid */
+  .grid-footer {
+    gap: 30px !important;
+  }
+}
+
+/* Mobile Phone (Maksimal 768px) */
+@media (max-width: 768px) {
+  /* Header padding kecil — JANGAN override position/z-index, sudah dihandle Navbar component */
+  header {
+    padding: 10px 16px !important;
+  }
+
+  /* Sembunyikan menu desktop, tampilkan hamburger + search */
+  .desktop-nav {
+    display: none !important;
+  }
+  .hamburger-btn {
+    display: flex !important;
+  }
+  .mobile-right-actions {
+    display: flex !important;
+  }
+
+  /* Section header: Browse All turun ke bawah */
+  .section-header-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
+
+  /* Hero: lebih pendek, parallax off di mobile */
+  .hero-fixed-bg {
+    height: 60vh !important;
+    background-attachment: scroll !important;
+  }
+  .hero-fixed-bg > div[style*="bottom"] {
+    bottom: 24px !important;
+    left: 20px !important;
+    max-width: 92% !important;
+  }
+  .hero-fixed-bg h1 {
+    font-size: 30px !important;
+    margin-bottom: 10px !important;
+  }
+  .hero-fixed-bg p {
+    font-size: 11px !important;
+    margin-bottom: 16px !important;
+  }
+  .hero-fixed-bg a {
+    padding: 10px 20px !important;
+    font-size: 11px !important;
+  }
+  .hero-fixed-bg span {
+    margin-bottom: 10px !important;
+  }
+
+  /* Section produk: padding lebih kecil */
+  .section-products {
+    padding: 36px 16px !important;
+  }
+  .section-products h2 {
+    font-size: 26px !important;
+  }
+
+  /* Grid produk: 1 kolom di mobile */
+  .grid-products {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* Tinggi gambar produk lebih pendek di mobile */
+  .product-img-wrapper {
+    height: 340px !important;
+  }
+
+  /* Winter wear text: padding kecil */
+  .winter-text {
+    padding: 40px 20px !important;
+  }
+  .winter-text h2 {
+    font-size: 32px !important;
+  }
+  .winter-text p {
+    font-size: 11px !important;
+  }
+
+  /* Winter slider: lebih pendek */
+  .winter-slider-container {
+    height: 320px !important;
+  }
+  .winter-slider-wrapper {
+    height: 320px !important;
+  }
+
+  /* Collection cards: 1 kolom, height lebih pendek */
+  .grid-collection {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-collection > a > div {
+    height: 380px !important;
+  }
+  .grid-collection h3 {
+    font-size: 28px !important;
+  }
+
+  /* Features bar: 2 kolom di mobile */
+  .grid-features {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+  }
+
+  /* Testimonial: font kecil */
+  .testimonial-section {
+    padding: 60px 16px 50px 16px !important;
+  }
+  .testimonial-quote {
+    font-size: 22px !important;
+  }
+  .testimonial-watermark {
+    font-size: 60px !important;
+  }
+
+  /* Footer: padding kecil */
+  .footer-main {
+    padding: 40px 16px 24px 16px !important;
+  }
+  .grid-footer {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-bottom: 40px !important;
+  }
+
+  /* Marquee bar: font lebih kecil */
+  .animate-marquee-track {
+    font-size: 10px !important;
+  }
+}
+
+/* Mobile Phone Kecil (Maksimal 480px) */
+@media (max-width: 480px) {
+  /* Hero: extra compact */
+  .hero-fixed-bg h1 {
+    font-size: 24px !important;
+  }
+  .hero-fixed-bg p {
+    font-size: 10px !important;
+  }
+
+  /* Section titles lebih kecil */
+  .section-products h2 {
+    font-size: 22px !important;
+  }
+
+  /* Product image height: lebih kecil */
+  .product-img-wrapper {
+    height: 280px !important;
+  }
+
+  /* Winter slider: extra compact */
+  .winter-slider-container {
+    height: 260px !important;
+  }
+  .winter-slider-wrapper {
+    height: 260px !important;
+  }
+  .winter-text h2 {
+    font-size: 26px !important;
+  }
+
+  /* Collection card height */
+  .grid-collection > a > div {
+    height: 300px !important;
+  }
+
+  /* Features: 1 kolom */
+  .grid-features {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Testimonial watermark: sangat kecil */
+  .testimonial-watermark {
+    font-size: 42px !important;
+  }
+}
+
+/* Desktop: pastikan hamburger hidden */
+@media (min-width: 769px) {
+  .hamburger-btn {
+    display: none !important;
+  }
+  .mobile-right-actions {
+    display: none !important;
+  }
+}
+
+/* ==========================================================
+   PRODUCT DETAIL PAGE
+   ========================================================== */
+
+/* Breadcrumb */
+.pd-breadcrumb {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+/* Main grid: galeri kiri + info kanan */
+.pd-main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 40px 80px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+/* GALERI: thumbnails + foto utama side by side */
+.pd-gallery {
+  display: flex;
+  gap: 16px;
+}
+
+/* Strip thumbnails vertikal */
+.pd-thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.pd-thumb-btn {
+  width: 68px;
+  height: 84px;
+  border: 1px solid #e5e5e5;
+  cursor: pointer;
+  overflow: hidden;
+  background: #f0f0f0;
+  padding: 0;
+  transition: border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.pd-thumb-btn.active {
+  border: 2px solid #0000FF;
+}
+
+.pd-thumb-btn:hover {
+  border-color: #121212;
+}
+
+/* Foto utama */
+.pd-main-img {
+  flex: 1;
+  height: 620px;
+  background-color: #e5e5e5;
+  overflow: hidden;
+}
+
+/* Info produk kanan */
+.pd-info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 8px;
+}
+
+.pd-title {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 0 0 16px 0;
+  font-family: Impact, sans-serif;
+  text-transform: uppercase;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+}
+
+.pd-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.pd-price {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.pd-price-old {
+  font-size: 15px;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.pd-desc {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.pd-order-btn {
+  width: 100%;
+  background-color: #0000FF;
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.pd-order-btn:hover {
+  background-color: #0000cc;
+}
+
+.pd-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pd-perk {
+  font-size: 11px;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* More Products section */
+.pd-more {
+  border-top: 1px solid #e5e5e5;
+  padding: 60px 40px 80px 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pd-more-title {
+  font-size: 32px;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0 0 32px 0;
+  font-family: Impact, sans-serif;
+}
+
+.pd-more-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.pd-more-img-wrap {
+  width: 100%;
+  height: 360px;
+  background-color: #e5e5e5;
+  overflow: hidden;
+}
+
+.pd-more-img-wrap:hover img {
+  transform: scale(1.04);
+}
+
+/* ==========================================================
+   PRODUCT DETAIL — RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 900px) {
+  /* Stack galeri + info jadi 1 kolom */
+  .pd-main {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 24px 20px 60px 20px;
+  }
+
+  .pd-breadcrumb {
+    padding: 12px 20px;
+  }
+
+  /* Foto utama lebih pendek */
+  .pd-main-img {
+    height: 420px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Galeri: thumbnails jadi strip horizontal di bawah foto */
+  .pd-gallery {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pd-thumbs {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 4px;
+    /* Sembunyikan scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .pd-thumbs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pd-thumb-btn {
+    width: 60px;
+    height: 72px;
+    flex-shrink: 0;
+  }
+
+  .pd-main-img {
+    height: 380px;
+  }
+
+  .pd-title {
+    font-size: 24px;
+  }
+
+  .pd-price {
+    font-size: 22px;
+  }
+
+  .pd-price-old {
+    font-size: 13px;
+  }
+
+  /* More products: 2 kolom */
+  .pd-more-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .pd-more-img-wrap {
+    height: 220px;
+  }
+
+  .pd-more {
+    padding: 40px 20px 60px 20px;
+  }
+
+  .pd-more-title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pd-main-img {
+    height: 300px;
+  }
+
+  .pd-title {
+    font-size: 20px;
+  }
+
+  /* More products: 1 kolom di layar sangat kecil */
+  .pd-more-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-more-img-wrap {
+    height: 280px;
+  }
+}
+
+/* ==========================================================
+   CATEGORIES SECTION
+   ========================================================== */
+
+.cat-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 60px 40px 80px 40px;
+}
+
+/* Header: judul + tab sejajar */
+.cat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #121212;
+  padding-bottom: 16px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.cat-title {
+  font-size: 36px;
+  font-weight: 900;
+  font-family: Impact, sans-serif;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+/* Tab buttons */
+.cat-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid #121212;
+}
+
+.cat-tab {
+  padding: 8px 28px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  border: none;
+  background-color: #ffffff;
+  color: #121212;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.cat-tab + .cat-tab {
+  border-left: 1px solid #121212;
+}
+
+.cat-tab.active {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.cat-tab:hover:not(.active) {
+  background-color: #f5f5f5;
+}
+
+/* Grid 4 kolom desktop */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Card */
+.cat-card {
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: #121212;
+  overflow: hidden;
+  background-color: #e5e5e5;
+  height: 320px;  /* explicit height */
+}
+
+/* Gambar */
+.cat-card-img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cat-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.cat-card:hover .cat-card-img img {
+  transform: scale(1.06);
+}
+
+/* Overlay gelap di bawah */
+.cat-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+/* Label teks di bawah card */
+.cat-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  z-index: 2;
+}
+
+.cat-card-label span {
+  font-size: 13px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+}
+
+/* ==========================================================
+   CATEGORIES — RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 1024px) {
+  .cat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cat-section {
+    padding: 40px 16px 60px 16px;
+  }
+
+  .cat-title {
+    font-size: 26px;
+  }
+
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .cat-tab {
+    padding: 8px 20px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .cat-card-label span {
+    font-size: 11px;
+  }
+}
+
+/* ==========================================================
+   SHOP / FILTER PAGE
+   ========================================================== */
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.shop-sidebar {
+  position: sticky;
+  top: 100px; /* di bawah navbar fixed */
+}
+
+@media (max-width: 1024px) {
+  .shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Stack sidebar ke atas grid */
+  div[style*="grid-template-columns: 220px"] {
+    display: block !important;
+  }
+
+  .shop-sidebar {
+    position: static;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .shop-sidebar > div {
+    margin-bottom: 0 !important;
+  }
+
+  .shop-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================
+   GENDER CARDS (MAN / WOMAN)
+   ========================================================== */
+
+.gender-cards-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px 80px 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+}
+
+@media (max-width: 768px) {
+  .gender-cards-section {
+    grid-template-columns: 1fr;
+    padding: 0 16px 60px 16px;
+    gap: 20px;
+  }
+
+  /* Card height lebih pendek di mobile */
+  .gender-cards-section > div {
+    height: 380px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .gender-cards-section > div {
+    height: 300px !important;
+  }
+}
+
+/* ==========================================================
+   SEARCH OVERLAY
+   ========================================================== */
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideDownSearch {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Search panel responsive */
+.search-panel {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .search-panel {
+    padding: 16px 16px 20px 16px !important;
+  }
+
+  .search-panel input {
+    font-size: 15px !important;
+  }
+}
+
+/* Anchor scroll offset — kompensasi navbar fixed */
+#new-arrival {
+  scroll-margin-top: 100px;
+}
+
+/* ==========================================================
+   ADMIN PANEL
+   ========================================================== */
+
+.admin-header {
+  border-bottom: 2px solid #121212;
+  padding: 14px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  gap: 16px;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  align-items: center;
+}
+
+.admin-nav-link {
+  color: #121212;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.admin-nav-link:hover {
+  color: #0000FF;
+}
+
+.admin-nav-cta {
+  color: #0000FF;
+  text-decoration: none;
+  border: 1px solid #0000FF;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: bold;
+  transition: all 0.15s ease;
+}
+
+.admin-nav-cta:hover {
+  background-color: #0000FF;
+  color: #fff;
+}
+
+/* Mobile actions — hidden on desktop */
+.admin-mobile-actions {
+  display: none;
+}
+
+/* Mobile bottom tab nav — hidden on desktop */
+.admin-mobile-nav {
+  display: none;
+}
+
+.admin-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* ── ADMIN RESPONSIVE ── */
+
+@media (max-width: 900px) {
+  .admin-header {
+    padding: 12px 20px;
+  }
+
+  .admin-nav {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-header {
+    padding: 12px 16px;
+  }
+
+  /* Sembunyikan desktop nav di mobile */
+  .admin-nav {
+    display: none;
+  }
+
+  /* Tampilkan mobile store button */
+  .admin-mobile-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Tab nav di bawah header */
+  .admin-mobile-nav {
+    display: flex;
+    border-bottom: 2px solid #121212;
+    background-color: #ffffff;
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    position: sticky;
+    top: 53px; /* tinggi admin-header di mobile */
+    z-index: 199;
+  }
+
+  .admin-mobile-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-mobile-nav-link {
+    flex-shrink: 0;
+    padding: 12px 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #121212;
+    text-decoration: none;
+    border-right: 1px solid #e5e5e5;
+    white-space: nowrap;
+  }
+
+  .admin-mobile-nav-link:hover {
+    background-color: #f5f5f5;
+    color: #0000FF;
+  }
+
+  .admin-content {
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-content {
+    padding: 16px 12px;
+  }
 }
