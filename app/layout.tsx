@@ -14,9 +14,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "NOCHY.",
-  description: "Fix Your Styles",
-};
+  title: 'NOCHY.',
+  description: 'NOCHY E-Commerce Store',
+  icons: {
+    icon: '/IMGLOGO/LOGO.png',
+  },
+}
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
