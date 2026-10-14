@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: 'NOCHY E-Commerce Store',
   icons: {
     icon: '/IMGLOGO/LOGO.png',
+    shortcut: '/IMGLOGO/LOGO.png',
+    apple: '/IMGLOGO/LOGO.png',
   },
 }
 
